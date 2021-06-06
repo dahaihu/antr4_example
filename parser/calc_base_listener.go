@@ -1,4 +1,4 @@
-// Generated from Calc.g4 by ANTLR 4.7.
+// Code generated from Calc.g4 by ANTLR 4.9. DO NOT EDIT.
 
 package parser // Calc
 
@@ -26,6 +26,12 @@ func (s *BaseCalcListener) EnterStart(ctx *StartContext) {}
 
 // ExitStart is called when production start is exited.
 func (s *BaseCalcListener) ExitStart(ctx *StartContext) {}
+
+// EnterParenthesis is called when production Parenthesis is entered.
+func (s *BaseCalcListener) EnterParenthesis(ctx *ParenthesisContext) {}
+
+// ExitParenthesis is called when production Parenthesis is exited.
+func (s *BaseCalcListener) ExitParenthesis(ctx *ParenthesisContext) {}
 
 // EnterNumber is called when production Number is entered.
 func (s *BaseCalcListener) EnterNumber(ctx *NumberContext) {}

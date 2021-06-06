@@ -1,4 +1,4 @@
-// Generated from Calc.g4 by ANTLR 4.7.
+// Code generated from Calc.g4 by ANTLR 4.9. DO NOT EDIT.
 
 package parser // Calc
 
@@ -11,6 +11,9 @@ type CalcListener interface {
 	// EnterStart is called when entering the start production.
 	EnterStart(c *StartContext)
 
+	// EnterParenthesis is called when entering the Parenthesis production.
+	EnterParenthesis(c *ParenthesisContext)
+
 	// EnterNumber is called when entering the Number production.
 	EnterNumber(c *NumberContext)
 
@@ -22,6 +25,9 @@ type CalcListener interface {
 
 	// ExitStart is called when exiting the start production.
 	ExitStart(c *StartContext)
+
+	// ExitParenthesis is called when exiting the Parenthesis production.
+	ExitParenthesis(c *ParenthesisContext)
 
 	// ExitNumber is called when exiting the Number production.
 	ExitNumber(c *NumberContext)

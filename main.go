@@ -52,6 +52,10 @@ func calc(input string) int {
 	return listener.pop()
 }
 
+func (l *calcListener) EnterMulDiv(c *parser.MulDivContext) {
+	fmt.Println("enter mul div", c.GetText())
+}
+
 func (l *calcListener) ExitMulDiv(c *parser.MulDivContext) {
 	right, left := l.pop(), l.pop()
 
@@ -63,6 +67,10 @@ func (l *calcListener) ExitMulDiv(c *parser.MulDivContext) {
 	default:
 		panic(fmt.Sprintf("unexpected op: %s", c.GetOp().GetText()))
 	}
+}
+
+func (l *calcListener) EnterAddSub(c *parser.AddSubContext) {
+	fmt.Println("enter add sub", c.GetText())
 }
 
 func (l *calcListener) ExitAddSub(c *parser.AddSubContext) {
@@ -78,7 +86,12 @@ func (l *calcListener) ExitAddSub(c *parser.AddSubContext) {
 	}
 }
 
+func (l *calcListener) EnterNumber(c *parser.NumberContext) {
+	fmt.Println("enter number ", c.GetText())
+}
+
 func (l *calcListener) ExitNumber(c *parser.NumberContext) {
+	fmt.Println("exit number ", c.GetText())
 	i, err := strconv.Atoi(c.GetText())
 	if err != nil {
 		panic(err.Error())
@@ -90,7 +103,7 @@ func (l *calcListener) ExitNumber(c *parser.NumberContext) {
 func main() {
 	// Setup the input
 	//is := antlr.NewInputStream("1 + 2 * 3")
-	fmt.Println(calc("1 + 2 * 3"))
+	fmt.Println(calc("1+2+(3+4)*(5-10)"))
 
 	//// Create the Lexer
 	//lexer := parser.NewCalcLexer(is)
