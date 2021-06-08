@@ -14,7 +14,7 @@ WHITESPACE: [ \r\n\t]+ -> skip;
 start : expression EOF;
 
 expression
-   : expression op=('*'|'/') expression # MulDiv
-   | expression op=('+'|'-') expression # AddSub
+   : left=expression op=('*'|'/') right=expression # MulDiv
+   | left=expression op=('+'|'-') right=expression # AddSub
    | NUMBER                             # Number
    | LEFT expression RIGHT              # Parenthesis;

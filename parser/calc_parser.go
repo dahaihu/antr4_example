@@ -357,7 +357,9 @@ func (s *NumberContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 type MulDivContext struct {
 	*ExpressionContext
-	op antlr.Token
+	left  IExpressionContext
+	op    antlr.Token
+	right IExpressionContext
 }
 
 func NewMulDivContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *MulDivContext {
@@ -373,6 +375,14 @@ func NewMulDivContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *MulDivC
 func (s *MulDivContext) GetOp() antlr.Token { return s.op }
 
 func (s *MulDivContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *MulDivContext) GetLeft() IExpressionContext { return s.left }
+
+func (s *MulDivContext) GetRight() IExpressionContext { return s.right }
+
+func (s *MulDivContext) SetLeft(v IExpressionContext) { s.left = v }
+
+func (s *MulDivContext) SetRight(v IExpressionContext) { s.right = v }
 
 func (s *MulDivContext) GetRuleContext() antlr.RuleContext {
 	return s
@@ -433,7 +443,9 @@ func (s *MulDivContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
 
 type AddSubContext struct {
 	*ExpressionContext
-	op antlr.Token
+	left  IExpressionContext
+	op    antlr.Token
+	right IExpressionContext
 }
 
 func NewAddSubContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *AddSubContext {
@@ -449,6 +461,14 @@ func NewAddSubContext(parser antlr.Parser, ctx antlr.ParserRuleContext) *AddSubC
 func (s *AddSubContext) GetOp() antlr.Token { return s.op }
 
 func (s *AddSubContext) SetOp(v antlr.Token) { s.op = v }
+
+func (s *AddSubContext) GetLeft() IExpressionContext { return s.left }
+
+func (s *AddSubContext) GetRight() IExpressionContext { return s.right }
+
+func (s *AddSubContext) SetLeft(v IExpressionContext) { s.left = v }
+
+func (s *AddSubContext) SetRight(v IExpressionContext) { s.right = v }
 
 func (s *AddSubContext) GetRuleContext() antlr.RuleContext {
 	return s
@@ -590,6 +610,8 @@ func (p *CalcParser) expression(_p int) (localctx IExpressionContext) {
 			switch p.GetInterpreter().AdaptivePredict(p.GetTokenStream(), 1, p.GetParserRuleContext()) {
 			case 1:
 				localctx = NewMulDivContext(p, NewExpressionContext(p, _parentctx, _parentState))
+				localctx.(*MulDivContext).left = _prevctx
+
 				p.PushNewRecursionContext(localctx, _startState, CalcParserRULE_expression)
 				p.SetState(15)
 
@@ -616,11 +638,16 @@ func (p *CalcParser) expression(_p int) (localctx IExpressionContext) {
 				}
 				{
 					p.SetState(17)
-					p.expression(5)
+
+					var _x = p.expression(5)
+
+					localctx.(*MulDivContext).right = _x
 				}
 
 			case 2:
 				localctx = NewAddSubContext(p, NewExpressionContext(p, _parentctx, _parentState))
+				localctx.(*AddSubContext).left = _prevctx
+
 				p.PushNewRecursionContext(localctx, _startState, CalcParserRULE_expression)
 				p.SetState(18)
 
@@ -647,7 +674,10 @@ func (p *CalcParser) expression(_p int) (localctx IExpressionContext) {
 				}
 				{
 					p.SetState(20)
-					p.expression(4)
+
+					var _x = p.expression(4)
+
+					localctx.(*AddSubContext).right = _x
 				}
 
 			}

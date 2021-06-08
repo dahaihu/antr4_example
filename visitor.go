@@ -1,9 +1,10 @@
 package main
 
 import (
-	"antr4_example/parser"
 	"fmt"
 	"strconv"
+
+	"antr4_example/parser"
 
 	"github.com/antlr/antlr4/runtime/Go/antlr"
 )
@@ -23,30 +24,29 @@ func (v *CalcVisitor) Visit(tree antlr.ParseTree) interface{} {
 	case *parser.StartContext:
 		return v.Visit(val.Expression())
 	case *parser.ParenthesisContext:
-		fmt.Println(tree.GetChildren())
-		return nil
+		return v.Visit(val.Expression())
 	default:
 		panic("Unknown context")
 	}
 }
 
 func (v *CalcVisitor) VisitAddSub(ctx *parser.AddSubContext) interface{} {
-	left := v.Visit(ctx.Expression(0)).(int)
-	right := v.Visit(ctx.Expression(1)).(int)
+	left := v.Visit(ctx.GetLeft()).(int)
+	right := v.Visit(ctx.GetRight()).(int)
 
 	switch ctx.GetOp().GetTokenType() {
 	case parser.CalcParserADD:
-		return left+right
+		return left + right
 	case parser.CalcParserSUB:
-		return left-right
+		return left - right
 	default:
 		panic(fmt.Sprintf("unexpected op: %s", ctx.GetOp().GetText()))
 	}
 }
 
 func (v *CalcVisitor) VisitMulDiv(ctx *parser.MulDivContext) interface{} {
-	left := v.Visit(ctx.Expression(0)).(int)
-	right := v.Visit(ctx.Expression(1)).(int)
+	left := v.Visit(ctx.GetLeft()).(int)
+	right := v.Visit(ctx.GetRight()).(int)
 	switch ctx.GetOp().GetTokenType() {
 	case parser.CalcParserMUL:
 		return left * right
