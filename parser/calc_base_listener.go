@@ -1,4 +1,4 @@
-// Code generated from Calc.g4 by ANTLR 4.9. DO NOT EDIT.
+// Code generated from /home/hsc/GolandProjects/go/src/antr4_example/Calc.g4 by ANTLR 4.9.1. DO NOT EDIT.
 
 package parser // Calc
 

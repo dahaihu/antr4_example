@@ -1,4 +1,4 @@
-// Code generated from Calc.g4 by ANTLR 4.9. DO NOT EDIT.
+// Code generated from /home/hsc/GolandProjects/go/src/antr4_example/Calc.g4 by ANTLR 4.9.1. DO NOT EDIT.
 
 package parser // Calc
 
@@ -160,6 +160,16 @@ func (s *StartContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *StartContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case CalcVisitor:
+		return t.VisitStart(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *CalcParser) Start() (localctx IStartContext) {
 	localctx = NewStartContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, CalcParserRULE_start)
@@ -291,6 +301,16 @@ func (s *ParenthesisContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ParenthesisContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case CalcVisitor:
+		return t.VisitParenthesis(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type NumberContext struct {
 	*ExpressionContext
 }
@@ -322,6 +342,16 @@ func (s *NumberContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *NumberContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(CalcListener); ok {
 		listenerT.ExitNumber(s)
+	}
+}
+
+func (s *NumberContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case CalcVisitor:
+		return t.VisitNumber(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -391,6 +421,16 @@ func (s *MulDivContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *MulDivContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case CalcVisitor:
+		return t.VisitMulDiv(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 type AddSubContext struct {
 	*ExpressionContext
 	op antlr.Token
@@ -454,6 +494,16 @@ func (s *AddSubContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *AddSubContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(CalcListener); ok {
 		listenerT.ExitAddSub(s)
+	}
+}
+
+func (s *AddSubContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case CalcVisitor:
+		return t.VisitAddSub(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
